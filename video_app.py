@@ -126,7 +126,7 @@ if user_id:
 
         # Check if all videos are completed in the selected category
         if len(completed_videos) == len(categories[selected_category]):
-            st.write("Congratulations! You have completed all videos in this category.")
+            st.markdown("<h3 style='color: green;'>**Congratulations! You have completed all videos in this category. Pass to the next one.**</h3>", unsafe_allow_html=True)
 
     # Provide download link for user's responses at any time
     if user_id:
