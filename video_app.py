@@ -64,35 +64,45 @@ if user_id:
             
             # Questionnaire after video
             st.write("Please rate the following aspects of the robot:")
-            
+
+            # Initialize the variables to store ratings
+            if 'safety' not in st.session_state:
+                st.session_state.safety = None
+            if 'movement' not in st.session_state:
+                st.session_state.movement = None
+            if 'comfort' not in st.session_state:
+                st.session_state.comfort = None
+
+            def rate_question(question, state_key):
+                cols = st.columns(5)
+                for i in range(1, 6):
+                    with cols[i-1]:
+                        if st.button(str(i), key=f"{state_key}_{i}"):
+                            st.session_state[state_key] = i
+
             # Question 1: Robot's safety regarding objects/people
-            safety = st.select_slider(
-                "Rate robot's safety regarding objects/people:",
-                options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Safe" if x == 1 else ("Safe" if x == 5 else "")
-            )
-            
+            st.write("Rate robot's safety regarding objects/people:")
+            rate_question("safety", "safety")
+
             # Question 2: Robot's movement
-            movement = st.select_slider(
-                "Rate robot's movement:",
-                options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Natural" if x == 1 else ("Natural" if x == 5 else "")
-            )
-            
+            st.write("Rate robot's movement:")
+            rate_question("movement", "movement")
+
             # Question 3: Comfort level with the robot
-            comfort = st.select_slider(
-                "Rate your comfort level with the robot:",
-                options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Comfortable" if x == 1 else ("Comfortable" if x == 5 else "")
-            )
-            
+            st.write("Rate your comfort level with the robot:")
+            rate_question("comfort", "comfort")
+
             if st.button("Submit"):
-                # Save the response
-                new_entry = pd.DataFrame([[user_id, selected_category, selected_video, safety, movement, comfort, True]], 
-                                         columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
-                responses_df = pd.concat([responses_df, new_entry], ignore_index=True)
-                responses_df.to_csv(RESPONSES_FILE, index=False)
-                st.success("Your response has been recorded!")
+                if None in [st.session_state.safety, st.session_state.movement, st.session_state.comfort]:
+                    st.error("Please complete all questions before submitting.")
+                else:
+                    # Save the response
+                    new_entry = pd.DataFrame([[user_id, selected_category, selected_video, 
+                                              st.session_state.safety, st.session_state.movement, st.session_state.comfort, True]], 
+                                             columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
+                    responses_df = pd.concat([responses_df, new_entry], ignore_index=True)
+                    responses_df.to_csv(RESPONSES_FILE, index=False)
+                    st.success("Your response has been recorded!")
 
             # Show completed videos
             completed_videos = responses_df[(responses_df['user_id'] == user_id) & 
