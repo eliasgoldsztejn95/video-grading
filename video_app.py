@@ -43,7 +43,7 @@ categories = {
 }
 
 # Streamlit App
-st.title("Video App with Questionnaire")
+st.title("Videos with Questionnaires")
 
 # User ID input
 user_id = st.text_input("Enter your User ID:")
