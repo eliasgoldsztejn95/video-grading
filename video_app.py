@@ -135,9 +135,8 @@ if user_id:
             if all(video in completed_videos for video in videos):
                 completed_categories.append(category)
     
-        if completed_categories:
-            st.write("You have completed the following categories:")
-            st.write(completed_categories)
+        st.write("You have completed the following categories:")
+        st.write(completed_categories)
         
         total_completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
                                                         (st.session_state.responses_df['completed'] == True)]['video'].tolist()
