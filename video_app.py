@@ -57,7 +57,7 @@ st.title("Video App with Questionnaire")
 user_id = st.text_input("Enter your User ID:")
 
 if user_id:
-    st.write(f"Welcome, User {user_id}!")
+    st.write(f"Welcome, User: {user_id}")
 
     # Show available categories
     selected_category = st.selectbox("Choose a category:", list(categories.keys()))
