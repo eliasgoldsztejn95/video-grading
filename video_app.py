@@ -106,17 +106,16 @@ if user_id:
                 st.success("Your response has been recorded!")
 
     # Show completed videos
-    if selected_category:
+    if user_id:
         completed_videos = responses_df[(responses_df['user_id'] == user_id) & 
-                                        (responses_df['category'] == selected_category) & 
                                         (responses_df['completed'] == True)]['video'].tolist()
 
-        st.write("You have completed the following videos in this category:")
+        st.write("You have completed the following videos:")
         st.write([f"Video {i+1}" for i in completed_videos])
 
         # Check if all videos are completed in the selected category
         if len(completed_videos) == len(categories[selected_category]):
-            st.write("Congratulations! You have completed all videos in this category.")
+            st.write("Congratulations! You have completed all videos in this category."
 
     # Provide download link for user's responses at any time
     if user_id:
