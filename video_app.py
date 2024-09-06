@@ -118,19 +118,14 @@ if user_id:
         if len(completed_videos) == len(categories[selected_category]):
             st.write("Congratulations! You have completed all videos in this category.")
 
-    # Check if all videos are completed
-    all_categories_completed = all(
-        len(responses_df[(responses_df['user_id'] == user_id) & 
-                          (responses_df['category'] == cat) & 
-                          (responses_df['completed'] == True)]['video'].tolist()) == len(categories[cat])
-        for cat in categories.keys()
-    )
-    if all_categories_completed:
-        st.write("You have completed all videos. Please download your responses:")
-        csv = responses_df[responses_df['user_id'] == user_id].to_csv(index=False)
-        st.download_button(
-            label="Download your responses",
-            data=csv,
-            file_name=f"user_{user_id}_responses.csv",
-            mime='text/csv'
-        )
+    # Provide download link for user's responses at any time
+    if user_id:
+        user_responses = responses_df[responses_df['user_id'] == user_id]
+        if not user_responses.empty:
+            csv = user_responses.to_csv(index=False)
+            st.download_button(
+                label="Download your responses",
+                data=csv,
+                file_name=f"user_{user_id}_responses.csv",
+                mime='text/csv'
+            )
