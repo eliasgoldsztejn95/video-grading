@@ -16,8 +16,9 @@ def load_responses():
 def save_responses(df):
     df.to_csv(RESPONSES_FILE, index=False)
 
-# Load responses at the start
-responses_df = load_responses()
+# Initialize session state if not already done
+if 'responses_df' not in st.session_state:
+    st.session_state.responses_df = load_responses()
 
 # Define categories and YouTube video URLs
 categories = {
@@ -99,23 +100,23 @@ if user_id:
 
             if st.button("Submit"):
                 # Check if response already exists
-                if responses_df[(responses_df['user_id'] == user_id) &
-                                (responses_df['category'] == selected_category) &
-                                (responses_df['video'] == video_number)].empty:
+                if st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
+                                                (st.session_state.responses_df['category'] == selected_category) &
+                                                (st.session_state.responses_df['video'] == video_number)].empty:
                     # Save the response
                     new_entry = pd.DataFrame([[user_id, selected_category, video_number, safety, movement, comfort, True]],
                                              columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
-                    responses_df = pd.concat([responses_df, new_entry], ignore_index=True)
-                    save_responses(responses_df)
+                    st.session_state.responses_df = pd.concat([st.session_state.responses_df, new_entry], ignore_index=True)
+                    save_responses(st.session_state.responses_df)
                     st.success("Your response has been recorded!")
                 else:
                     st.warning("You have already submitted a response for this video.")
 
     # Show completed videos
     if selected_category:
-        completed_videos = responses_df[(responses_df['user_id'] == user_id) &
-                                        (responses_df['category'] == selected_category) &
-                                        (responses_df['completed'] == True)]['video'].tolist()
+        completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
+                                                        (st.session_state.responses_df['category'] == selected_category) &
+                                                        (st.session_state.responses_df['completed'] == True)]['video'].tolist()
 
         st.write("You have completed the following videos in this category:")
         st.write([f"Video {i+1}" for i in completed_videos])
@@ -126,7 +127,7 @@ if user_id:
 
     # Provide download link for user's responses at any time
     if user_id:
-        user_responses = responses_df[responses_df['user_id'] == user_id]
+        user_responses = st.session_state.responses_df[st.session_state.responses_df['user_id'] == user_id]
         if not user_responses.empty:
             csv = user_responses.to_csv(index=False)
             st.download_button(
