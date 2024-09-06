@@ -12,6 +12,7 @@ def load_responses():
     else:
         return pd.DataFrame(columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
 
+# Load responses at the start
 responses_df = load_responses()
 
 # Define categories and YouTube video URLs
