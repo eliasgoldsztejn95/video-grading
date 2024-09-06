@@ -133,7 +133,7 @@ if user_id:
         total_completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
                                                         (st.session_state.responses_df['completed'] == True)]['video'].tolist()
         completed_categories = []
-        for category, videos in categories.items():
+        for category in categories.keys():
             completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
                                                             (st.session_state.responses_df['category'] == category) &
                                                             (st.session_state.responses_df['completed'] == True)]['video'].tolist()
