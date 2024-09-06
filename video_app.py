@@ -80,6 +80,7 @@ if user_id:
             st.write("Please rate the following aspects of the robot:")
 
             # Question 1: Robot's safety regarding objects/people
+            st.markdown("**Rate robot's safety regarding objects/people:**")
             safety = st.select_slider(
                 "Rate robot's safety regarding objects/people:",
                 options=[1, 2, 3, 4, 5],
