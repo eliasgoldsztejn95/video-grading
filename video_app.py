@@ -100,21 +100,21 @@ if user_id:
                 responses_df.to_csv(RESPONSES_FILE, index=False)
                 st.success("Your response has been recorded!")
 
-    # Show completed videos
-    completed_videos = responses_df[(responses_df['user_id'] == user_id)]['video'].tolist()
+# Show completed videos
+completed_videos = responses_df[(responses_df['user_id'] == user_id)]['video'].tolist()
 
-    st.write("You have completed the following videos:")
-    st.write(completed_videos)
+st.write("You have completed the following videos:")
+st.write(completed_videos)
 
-    # Check if all videos are completed
-    if len(completed_videos) == 16:
-        st.write("Congratulations! You have completed all the videos. Please download your responses:")
-        csv = responses_df[responses_df['user_id'] == user_id].to_csv(index=False)
-        st.download_button(
-            label="Download your responses",
-            data=csv,
-            file_name=f"user_{user_id}_responses.csv",
-            mime='text/csv'
-        )
+# Check if all videos are completed
+if len(completed_videos) == 16:
+    st.write("Congratulations! You have completed all the videos. Please download your responses:")
+    csv = responses_df[responses_df['user_id'] == user_id].to_csv(index=False)
+    st.download_button(
+        label="Download your responses",
+        data=csv,
+        file_name=f"user_{user_id}_responses.csv",
+        mime='text/csv'
+    )
 
 
