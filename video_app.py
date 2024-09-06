@@ -10,7 +10,7 @@ def load_responses():
     if os.path.exists(RESPONSES_FILE):
         return pd.read_csv(RESPONSES_FILE)
     else:
-        return pd.DataFrame(columns=['user_id', 'category', 'video', 'question1', 'question2', 'completed'])
+        return pd.DataFrame(columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
 
 responses_df = load_responses()
 
@@ -43,46 +43,65 @@ categories = {
 }
 
 # Streamlit App
-st.title("Videos with Questionnaires")
+st.title("Video App with Questionnaire")
 
 # User ID input
 user_id = st.text_input("Enter your User ID:")
 
 if user_id:
     st.write(f"Welcome, User {user_id}!")
-
+    
     # Show available categories
     selected_category = st.selectbox("Choose a category:", list(categories.keys()))
 
     # Show available videos in the selected category
     if selected_category:
         selected_video = st.selectbox("Choose a video:", categories[selected_category])
-
+        
         # Show the YouTube video
         if selected_video:
             st.video(selected_video)
-
+            
             # Questionnaire after video
-            st.write("Please fill out the following questionnaire:")
-            question1 = st.text_input("What did you like about the video?")
-            question2 = st.text_input("What could be improved?")
-
+            st.write("Please rate the following aspects of the robot:")
+            
+            # Question 1: Robot's safety regarding objects/people
+            safety = st.radio(
+                "Rate robot's safety regarding objects/people:",
+                [1, 2, 3, 4, 5],
+                format_func=lambda x: f"{x} - {'Not Safe' if x == 1 else 'Safe'}"
+            )
+            
+            # Question 2: Robot's movement
+            movement = st.radio(
+                "Rate robot's movement:",
+                [1, 2, 3, 4, 5],
+                format_func=lambda x: f"{x} - {'Not Natural' if x == 1 else 'Natural'}"
+            )
+            
+            # Question 3: Comfort level with the robot
+            comfort = st.radio(
+                "Rate your comfort level with the robot:",
+                [1, 2, 3, 4, 5],
+                format_func=lambda x: f"{x} - {'Not Comfortable' if x == 1 else 'Comfortable'}"
+            )
+            
             if st.button("Submit"):
                 # Save the response
-                new_entry = pd.DataFrame([[user_id, selected_category, selected_video, question1, question2, True]],
-                                         columns=['user_id', 'category', 'video', 'question1', 'question2', 'completed'])
+                new_entry = pd.DataFrame([[user_id, selected_category, selected_video, safety, movement, comfort, True]], 
+                                         columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
                 responses_df = pd.concat([responses_df, new_entry], ignore_index=True)
                 responses_df.to_csv(RESPONSES_FILE, index=False)
                 st.success("Your response has been recorded!")
 
             # Show completed videos
-            completed_videos = responses_df[(responses_df['user_id'] == user_id) &
-                                            (responses_df['category'] == selected_category) &
+            completed_videos = responses_df[(responses_df['user_id'] == user_id) & 
+                                            (responses_df['category'] == selected_category) & 
                                             (responses_df['completed'] == True)]['video'].tolist()
             if completed_videos:
                 st.write("You have completed the following videos:")
                 st.write(completed_videos)
-
+            
             # Check if all videos are completed
             if len(completed_videos) == len(categories[selected_category]):
                 st.write("Congratulations! You have completed all videos in this category.")
