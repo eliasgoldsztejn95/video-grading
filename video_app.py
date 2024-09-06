@@ -27,14 +27,14 @@ categories = {
     'Category 1': [
         'https://youtube.com/watch?v=4Dp3pLaz97s',  # Replace with your actual video URLs
         'https://www.youtube.com/watch?v=FNYBb24sHCc',
-        'https://www.youtube.com/watch?v=example3',
-        'https://www.youtube.com/watch?v=example4'
+        'https://www.youtube.com/watch?v=UYUgk-ooBnA',
+        'https://www.youtube.com/watch?v=w5obWdSBipA'
     ],
     'Category 2': [
-        'https://www.youtube.com/watch?v=example5',
-        'https://www.youtube.com/watch?v=example6',
-        'https://www.youtube.com/watch?v=example7',
-        'https://www.youtube.com/watch?v=example8'
+        'https://www.youtube.com/watch?v=mYEjeRn8Rak',
+        'https://www.youtube.com/watch?v=15U5i23WNL0',
+        'https://youtube.com/watch?v=j_H5po52nhk',
+        'https://www.youtube.com/watch?v=fGwT5oFEdPE'
     ],
     'Category 3': [
         'https://www.youtube.com/watch?v=example9',
