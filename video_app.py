@@ -16,9 +16,11 @@ def load_responses():
 def save_responses(df):
     df.to_csv(RESPONSES_FILE, index=False)
 
-# Initialize session state if not already done
+# Initialize session state
 if 'responses_df' not in st.session_state:
     st.session_state.responses_df = load_responses()
+if 'is_csv_created' not in st.session_state:
+    st.session_state.is_csv_created = True
 
 # Define categories and YouTube video URLs
 categories = {
@@ -108,6 +110,7 @@ if user_id:
                                              columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
                     st.session_state.responses_df = pd.concat([st.session_state.responses_df, new_entry], ignore_index=True)
                     save_responses(st.session_state.responses_df)
+                    st.session_state.is_csv_created = True
                     st.success("Your response has been recorded!")
                 else:
                     st.warning("You have already submitted a response for this video.")
