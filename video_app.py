@@ -128,14 +128,19 @@ if user_id:
         if len(completed_videos) == len(categories[selected_category]):
             st.markdown("<h3 style='color: black;'>You have completed all videos in this category! Pass to the next one.</h3>", unsafe_allow_html=True)
 
-    # Provide download link for user's responses at any time
-    if user_id:
-        user_responses = st.session_state.responses_df[st.session_state.responses_df['user_id'] == user_id]
-        if not user_responses.empty:
-            csv = user_responses.to_csv(index=False)
-            st.download_button(
-                label="Download your responses",
-                data=csv,
-                file_name=f"user_{user_id}_responses.csv",
-                mime='text/csv'
-            )
+    # Check if all videos in all categories are completed
+    all_videos = [video for vids in categories.values() for video in vids]
+    completed_all_videos = all(set(all_videos) == set(responses_df[(responses_df['user_id'] == user_id)]['video']))
+
+    if completed_all_videos:
+        st.markdown(
+            "<h3 style='color: blue;'>You have completed all the videos! Please download your responses and send them to: eliasgol@post.bgu.ac.il</h3>",
+            unsafe_allow_html=True
+        )
+        csv = responses_df[responses_df['user_id'] == user_id].to_csv(index=False)
+        st.download_button(
+            label="Download your responses",
+            data=csv,
+            file_name=f"user_{user_id}_responses.csv",
+            mime='text/csv'
+        )
