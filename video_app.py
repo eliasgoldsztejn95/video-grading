@@ -26,7 +26,7 @@ if 'is_csv_created' not in st.session_state:
 categories = {
     'Category 1': [
         'https://www.youtube.com/watch?v=dQw4w9WgXcQ',  # Replace with your actual video URLs
-        'https://www.youtube.com/shorts/FNYBb24sHCc',
+        'https://youtube.com/shorts/FNYBb24sHCc?si=NGKNelyNEC0Eodb5',
         'https://www.youtube.com/watch?v=example3',
         'https://www.youtube.com/watch?v=example4'
     ],
