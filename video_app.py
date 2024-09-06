@@ -135,7 +135,7 @@ if user_id:
         completed_categories = []
         for category, videos in categories.items():
             completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
-                                                            (st.session_state.responses_df['category'] == selected_category) &
+                                                            (st.session_state.responses_df['category'] == category) &
                                                             (st.session_state.responses_df['completed'] == True)]['video'].tolist()
             if len(completed_videos) == 4:
                 completed_categories.append(category)
