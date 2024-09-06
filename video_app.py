@@ -121,7 +121,7 @@ if user_id:
                                                         (st.session_state.responses_df['category'] == selected_category) &
                                                         (st.session_state.responses_df['completed'] == True)]['video'].tolist()
 
-        st.write(f"You have completed the following videos in category {selected_category}:")
+        st.write(f"You have completed the following videos in {selected_category}:")
         st.write([f"Video {i+1}" for i in completed_videos])
 
         # Check if all videos are completed in the selected category
@@ -130,10 +130,20 @@ if user_id:
 
     # Provide download link for user's responses at any time
     if user_id:
+        completed_categories = []
+        for category, videos in categories.items():
+            if all(video in completed_videos for video in videos):
+                completed_categories.append(category)
+    
+        if completed_categories:
+            st.write("You have completed the following categories:")
+            st.write(completed_categories)
+        
         total_completed_videos = st.session_state.responses_df[(st.session_state.responses_df['user_id'] == user_id) &
                                                         (st.session_state.responses_df['completed'] == True)]['video'].tolist()
         if(len(total_completed_videos)) == 16:
             st.markdown("<h3 style='color: blue;'>You have completed all the videos! Download responses and send them to: eliasgol@post.bgu.ac.il.</h3>", unsafe_allow_html=True)
+            
         user_responses = st.session_state.responses_df[st.session_state.responses_df['user_id'] == user_id]
         if not user_responses.empty:
             csv = user_responses.to_csv(index=False)
