@@ -82,6 +82,7 @@ if user_id:
             # Question 1: Robot's safety regarding objects/people
             st.markdown("**Rate robot's safety regarding objects/people:**")
             safety = st.select_slider(
+                "",
                 options=[1, 2, 3, 4, 5],
                 format_func=lambda x: "Not Safe" if x == 1 else ("Safe" if x == 5 else "")
             )
