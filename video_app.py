@@ -66,24 +66,24 @@ if user_id:
             st.write("Please rate the following aspects of the robot:")
             
             # Question 1: Robot's safety regarding objects/people
-            safety = st.radio(
+            safety = st.select_slider(
                 "Rate robot's safety regarding objects/people:",
-                [1, 2, 3, 4, 5],
-                format_func=lambda x: f"{x} - {'Not Safe' if x == 1 else 'Safe'}"
+                options=[1, 2, 3, 4, 5],
+                format_func=lambda x: "Not Safe" if x == 1 else ("Safe" if x == 5 else "")
             )
             
             # Question 2: Robot's movement
-            movement = st.radio(
+            movement = st.select_slider(
                 "Rate robot's movement:",
-                [1, 2, 3, 4, 5],
-                format_func=lambda x: f"{x} - {'Not Natural' if x == 1 else 'Natural'}"
+                options=[1, 2, 3, 4, 5],
+                format_func=lambda x: "Not Natural" if x == 1 else ("Natural" if x == 5 else "")
             )
             
             # Question 3: Comfort level with the robot
-            comfort = st.radio(
+            comfort = st.select_slider(
                 "Rate your comfort level with the robot:",
-                [1, 2, 3, 4, 5],
-                format_func=lambda x: f"{x} - {'Not Comfortable' if x == 1 else 'Comfortable'}"
+                options=[1, 2, 3, 4, 5],
+                format_func=lambda x: "Not Comfortable" if x == 1 else ("Comfortable" if x == 5 else "")
             )
             
             if st.button("Submit"):
