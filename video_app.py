@@ -10,7 +10,7 @@ def load_responses():
     if os.path.exists(RESPONSES_FILE):
         return pd.read_csv(RESPONSES_FILE)
     else:
-        return pd.DataFrame(columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
+        return pd.DataFrame(columns=['user_id', 'category', 'video', 'video_number', 'safety', 'movement', 'comfort', 'completed'])
 
 responses_df = load_responses()
 
@@ -56,15 +56,21 @@ if user_id:
 
     # Show available videos in the selected category
     if selected_category:
-        selected_video = st.selectbox("Choose a video:", categories[selected_category])
+        video_urls = categories[selected_category]
+        video_titles = [f"Video {i+1}" for i in range(len(video_urls))]
+        selected_video_index = st.selectbox("Choose a video:", video_titles)
+        
+        # Determine the video URL and number
+        video_number = int(selected_video_index.split()[1]) - 1
+        selected_video_url = video_urls[video_number]
         
         # Show the YouTube video
-        if selected_video:
-            st.video(selected_video)
+        if selected_video_url:
+            st.video(selected_video_url)
             
             # Questionnaire after video
             st.write("Please rate the following aspects of the robot:")
-            
+
             # Question 1: Robot's safety regarding objects/people
             safety = st.select_slider(
                 "Rate robot's safety regarding objects/people:",
@@ -88,8 +94,9 @@ if user_id:
             
             if st.button("Submit"):
                 # Save the response
-                new_entry = pd.DataFrame([[user_id, selected_category, selected_video, safety, movement, comfort, True]], 
-                                         columns=['user_id', 'category', 'video', 'safety', 'movement', 'comfort', 'completed'])
+                new_entry = pd.DataFrame([[user_id, selected_category, selected_video_url, video_number + 1, 
+                                          safety, movement, comfort, True]], 
+                                         columns=['user_id', 'category', 'video', 'video_number', 'safety', 'movement', 'comfort', 'completed'])
                 responses_df = pd.concat([responses_df, new_entry], ignore_index=True)
                 responses_df.to_csv(RESPONSES_FILE, index=False)
                 st.success("Your response has been recorded!")
@@ -97,19 +104,27 @@ if user_id:
             # Show completed videos
             completed_videos = responses_df[(responses_df['user_id'] == user_id) & 
                                             (responses_df['category'] == selected_category) & 
-                                            (responses_df['completed'] == True)]['video'].tolist()
+                                            (responses_df['completed'] == True)]['video_number'].tolist()
+            total_videos = len(video_urls)
+            
             if completed_videos:
                 st.write("You have completed the following videos:")
-                st.write(completed_videos)
+                st.write([f"Video {num}" for num in completed_videos])
             
-            # Check if all videos are completed
-            if len(completed_videos) == len(categories[selected_category]):
+            # Check if all videos in the category are completed
+            if len(completed_videos) == total_videos:
                 st.write("Congratulations! You have completed all videos in this category.")
 
-            # Provide download link for user's responses
-            user_responses = responses_df[responses_df['user_id'] == user_id]
-            if not user_responses.empty:
-                csv = user_responses.to_csv(index=False)
+            # Check if all categories are completed
+            all_categories_completed = all(
+                len(responses_df[(responses_df['user_id'] == user_id) & 
+                                  (responses_df['category'] == cat) & 
+                                  (responses_df['completed'] == True)]['video_number'].tolist()) == len(categories[cat])
+                for cat in categories.keys()
+            )
+            if all_categories_completed:
+                st.write("You have completed all videos. Please download your responses:")
+                csv = responses_df[responses_df['user_id'] == user_id].to_csv(index=False)
                 st.download_button(
                     label="Download your responses",
                     data=csv,
