@@ -54,7 +54,7 @@ categories = {
 st.title("Video App with Questionnaire")
 
 # User ID input
-user_id = st.text_input("Enter your User ID:")
+user_id = st.text_input("Enter your User Mail:")
 
 if user_id:
     st.write(f"Welcome, User: {user_id}")
