@@ -27,7 +27,7 @@ categories = {
     'Category 1': [
         'https://youtube.com/watch?v=4Dp3pLaz97s',  # Replace with your actual video URLs
         'https://www.youtube.com/watch?v=FNYBb24sHCc',
-        'https://www.youtube.com/watch?v=UYUgk-ooBnA',
+        'https://youtube.com/watch?v=UYUgk-ooBnA',
         'https://www.youtube.com/watch?v=w5obWdSBipA'
     ],
     'Category 2': [
