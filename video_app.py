@@ -115,7 +115,7 @@ if user_id:
 
         # Check if all videos are completed in the selected category
         if len(completed_videos) == len(categories[selected_category]):
-            st.write("Congratulations! You have completed all videos in this category."
+            st.write("Congratulations! You have completed all videos in this category.")
 
     # Provide download link for user's responses at any time
     if user_id:
