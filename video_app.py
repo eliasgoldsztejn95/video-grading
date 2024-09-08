@@ -121,7 +121,6 @@ if user_id:
                                                         (st.session_state.responses_df['category'] == selected_category) &
                                                         (st.session_state.responses_df['completed'] == True)]['video'].tolist()
 
-        st.write(f"You have completed the following videos in {selected_category}:")
         st.write("Completed videos data:", completed_videos)
         st.write([f"Video {i+1}" for i in completed_videos])
 
