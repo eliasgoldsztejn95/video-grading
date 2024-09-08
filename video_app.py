@@ -37,16 +37,16 @@ categories = {
         'https://youtube.com/watch?v=fGwT5oFEdPE'
     ],
     'Category 3': [
-        'https://www.youtube.com/watch?v=example9',
-        'https://www.youtube.com/watch?v=example10',
-        'https://www.youtube.com/watch?v=example11',
-        'https://www.youtube.com/watch?v=example12'
+        'https://youtube.com/watch?v=Ej0dMMtWkqQ',
+        'https://youtube.com/watch?v=7yjyLhShPME',
+        'https://youtube.com/watch?v=fIzRZabPORk',
+        'https://youtube.com/watch?v=Y20Cp9ZS10s'
     ],
     'Category 4': [
-        'https://www.youtube.com/watch?v=example13',
-        'https://www.youtube.com/watch?v=example14',
-        'https://www.youtube.com/watch?v=example15',
-        'https://www.youtube.com/watch?v=example16'
+        'https://youtube.com/watch?v=p1RGj_hBaOM',
+        'https://youtube.com/watch?v=sbsvW54xaKo',
+        'https://youtube.com/watch?v=mihRVObGGls',
+        'https://youtube.com/watch?v=v2b3EyqONdU'
     ]
 }
 
@@ -81,21 +81,21 @@ if user_id:
 
             # Question 1: Robot's safety regarding objects/people
             safety = st.select_slider(
-                "Rate robot's safety regarding objects/people:",
+                "Rate robot's safety regarding walls/objects/people:",
                 options=[1, 2, 3, 4, 5],
                 format_func=lambda x: "Not Safe" if x == 1 else ("Safe" if x == 5 else "")
             )
 
             # Question 2: Robot's movement
             movement = st.select_slider(
-                "Rate robot's movement:",
+                "Rate robot's navigation:",
                 options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Natural" if x == 1 else ("Natural" if x == 5 else "")
+                format_func=lambda x: "Not Normal" if x == 1 else ("Normal" if x == 5 else "")
             )
 
             # Question 3: Comfort level with the robot
             comfort = st.select_slider(
-                "Rate your comfort level with the robot:",
+                "Imagine you are walking alongside the robot. Rate your comfort level with the robot:",
                 options=[1, 2, 3, 4, 5],
                 format_func=lambda x: "Not Comfortable" if x == 1 else ("Comfortable" if x == 5 else "")
             )
