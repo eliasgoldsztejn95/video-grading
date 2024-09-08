@@ -37,10 +37,10 @@ categories = {
         'https://youtube.com/watch?v=fGwT5oFEdPE'
     ],
     'Category 3': [
-        'https://www.youtube.com/watch?v=Ej0dMMtWkqQ',
-        'https://www.youtube.com/watch?v=7yjyLhShPME',
-        'https://www.youtube.com/watch?v=fIzRZabPORk',
-        'https://www.youtube.com/watch?v=Y20Cp9ZS10s'
+        'https://youtube.com/watch?v=Ej0dMMtWkqQ',
+        'https://youtube.com/watch?v=7yjyLhShPME',
+        'https://youtube.com/watch?v=fIzRZabPORk',
+        'https://youtube.com/watch?v=Y20Cp9ZS10s'
     ],
     'Category 4': [
         'https://www.youtube.com/watch?v=example13',
