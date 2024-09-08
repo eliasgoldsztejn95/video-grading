@@ -79,7 +79,7 @@ if user_id:
             # Questionnaire after video
             st.write("Please rate the following aspects of the robot:")
 
-            # Question 1: Robot's safety regarding objects/people
+            # Question 1: Robot's safety regarding walls/objects/people
             safety = st.select_slider(
                 "Rate robot's safety regarding objects/people:",
                 options=[1, 2, 3, 4, 5],
@@ -88,14 +88,14 @@ if user_id:
 
             # Question 2: Robot's movement
             movement = st.select_slider(
-                "Rate robot's movement:",
+                "Rate robot's navigation:",
                 options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Natural" if x == 1 else ("Natural" if x == 5 else "")
+                format_func=lambda x: "Not Normal" if x == 1 else ("Normal" if x == 5 else "")
             )
 
             # Question 3: Comfort level with the robot
             comfort = st.select_slider(
-                "Rate your comfort level with the robot:",
+                "Imagine you are walking alongside the robot. Rate your comfort level with the robot:",
                 options=[1, 2, 3, 4, 5],
                 format_func=lambda x: "Not Comfortable" if x == 1 else ("Comfortable" if x == 5 else "")
             )
