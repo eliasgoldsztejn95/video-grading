@@ -88,7 +88,7 @@ if user_id:
 
             # Question 2: Robot's movement
             movement = st.select_slider(
-                "Rate robot's navigation:",
+                "Rate how natural/expected the robot navigation is:",
                 options=[1, 2, 3, 4, 5],
                 format_func=lambda x: "Not Expected" if x == 1 else ("Expected" if x == 5 else "")
             )
