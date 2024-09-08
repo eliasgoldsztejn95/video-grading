@@ -90,7 +90,7 @@ if user_id:
             movement = st.select_slider(
                 "Rate robot's navigation:",
                 options=[1, 2, 3, 4, 5],
-                format_func=lambda x: "Not Normal" if x == 1 else ("Normal" if x == 5 else "")
+                format_func=lambda x: "Not Expected" if x == 1 else ("Expected" if x == 5 else "")
             )
 
             # Question 3: Comfort level with the robot
